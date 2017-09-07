@@ -5,7 +5,7 @@
       <template v-if="title">
         <div class="card-title">
           <div class="title is-4">
-            <strong>{{title}}</strong>
+            <strong v-html="title"></strong>
           </div>
         </div>
       </template>

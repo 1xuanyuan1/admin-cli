@@ -1,7 +1,7 @@
 <template>
   <div class="field is-horizontal vd-input">
     <div class="field-label is-normal">
-      <label class="label">{{name}}</label>
+      <label class="label" v-html="name"></label>
     </div>
     <div class="field-body">
       <div class="field">
@@ -11,7 +11,7 @@
             <i class="fa fa-warning"></i>
           </span>
         </div>
-        <p class="help is-danger" v-if="errors.has(name)">{{errors.first(name)}}</p>
+        <p class="help is-danger" v-if="errors.has(name)" v-html="errors.first(name)"></p>
       </div>
     </div>
   </div>
