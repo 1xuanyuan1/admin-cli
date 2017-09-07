@@ -17,8 +17,7 @@
             class="navbar-item is-tab" 
             v-for="menu in menus"
             :key="menu"
-            :to="`/${menu}`">
-            {{string.nav[menu]}}
+            :to="`/${menu}`" v-html="string.nav[menu]">
           </router-link>
         </div>
 
