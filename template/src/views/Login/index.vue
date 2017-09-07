@@ -15,7 +15,7 @@
               <i class="fa fa-warning"></i>
             </span>
           </div>
-          <p class="help is-danger" v-if="errors.has('账号')">{{ errors.first('账号') }}</p>
+          <p class="help is-danger" v-if="errors.has('账号')" v-html="errors.first('账号')"></p>
         </div>
         <div class="field">
           <div class="control has-icons-left has-icons-right">
@@ -27,7 +27,7 @@
               <i class="fa fa-warning"></i>
             </span>
           </div>
-          <p class="help is-danger" v-if="errors.has('密码')">{{ errors.first('密码') }}</p>
+          <p class="help is-danger" v-if="errors.has('密码')" v-html="errors.first('密码')"></p>
         </div>
         <div class="field">
           <div class="control">
