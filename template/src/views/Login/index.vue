@@ -47,7 +47,7 @@
 </template>
 <script>
 import { ValidateInput } from '@/components/Common'
-import { mapGetters, mapActions } from 'vuex'
+import { mapActions } from 'vuex'
 import ls from 'store2'
 export default {
   name: 'Login',
@@ -55,16 +55,10 @@ export default {
     ValidateInput
   },
   computed: {
-    ...mapGetters(['string']),
     params () {
       return {
-        grant_type: 'password',
-        client_id: 2,
-        client_secret: 'Fv0xGfBc8ltAgGcPKBL07Zl4yOqVVWEkv9vjrrAc',
         username: this.username,
         password: this.password
-        // 'username': '18999999999',
-        // 'password': '123456'
       }
     }
   },
@@ -81,26 +75,14 @@ export default {
   },
   methods: {
     ...mapActions([
-      'setToken',
-      'setPermissions'
+      'setToken'
     ]),
-    getAccountInfo () { // 获取用户信息 ps. 主要是为了获取用户权限
-      this.$api.get('admin/staff/me').then(req => {
-        if (req.is_admin === 1) {
-          this.setPermissions(Object.keys(this.string.allPermissions))
-        } else {
-          this.setPermissions(req.permissions)
-        }
-        this.$router.replace('/')
-      })
-    },
     login () {
       this.loading = true
       this.$api.post('oauth/token', this.params).then((data) => {
         this.loading = false
-        this.setToken(`${data.token_type} ${data.access_token}`)
-        this.$openMessage({message: '登录成功', type: 'success'})
-        this.getAccountInfo()
+        this.setToken(`${data.token}`)
+        // this.$openMessage({message: '登录成功', type: 'success'})
         if (this.isRemember) {
           ls.set('isRemember', this.isRemember)
           ls.set('username', this.username)
@@ -108,8 +90,10 @@ export default {
         } else {
           ls.set('isRemember', this.isRemember)
         }
+        this.$router.replace('/')
       }).catch(e => {
-        this.$openMessage({message: '登录失败！ 账号或者密码错误'})
+        this.loading = false
+        // this.$openMessage({message: '登录失败！ 账号或者密码错误'})
       })
     }
   }
